@@ -8,6 +8,8 @@ import { ProductComponent } from './Pages/product/product.component';
 import { SaleComponent } from './Pages/sale/sale.component';
 import { SaleHistoryComponent } from './Pages/sale-history/sale-history.component';
 import { SaleReportComponent } from './Pages/sale-report/sale-report.component';
+import { SharedModule } from '../../Utils/shared/shared.module';
+import { AccountService } from '../../Services/account.service';
 
 
 @NgModule({
@@ -21,7 +23,11 @@ import { SaleReportComponent } from './Pages/sale-report/sale-report.component';
   ],
   imports: [
     CommonModule,
-    LayoutRoutingModule
+    LayoutRoutingModule,
+    SharedModule, // Modulo de compartidos como modulos de material
+  ],
+  providers: [
+    AccountService
   ]
 })
 export class LayoutModule { }
