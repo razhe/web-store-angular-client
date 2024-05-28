@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ResponseApi } from '../Interfaces/response-api';
-import { User } from '../Interfaces/user';
 import { CreateUpdateUser } from '../Interfaces/create-update-user';
 
 @Injectable({
