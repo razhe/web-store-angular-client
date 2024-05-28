@@ -13,12 +13,26 @@ export class SaleService {
 
   constructor(private http: HttpClient) { }
 
-  GetHistory (): Observable<ResponseApi> {
-    return this.http.get<ResponseApi>(`${ this.urlEndpoint }/history`)
+  GetHistory (searchTerm: string, orderNumber?: string, startDate?: string, endDate?: string): Observable<ResponseApi> {
+    const params = new HttpParams()
+      .set("SearchTerm", searchTerm)
+
+    if (orderNumber)
+      params.set("OrderNumber", orderNumber)
+    if (startDate)
+      params.set("StartDate", startDate)
+    if (endDate)
+      params.set("EndDate", endDate)
+
+    return this.http.get<ResponseApi>(`${ this.urlEndpoint }/history`, { params })
   }
 
-  GetReport (): Observable<ResponseApi> {
-    return this.http.get<ResponseApi>(`${ this.urlEndpoint }/report`)
+  GetReport (startDate: string, endDate: string): Observable<ResponseApi> {
+    const params = new HttpParams()
+      .set("StartDate", startDate)
+      .set("EndDate", endDate)
+
+    return this.http.get<ResponseApi>(`${ this.urlEndpoint }/report`, { params })
   }
 
   Create (request: CreateSale) : Observable<ResponseApi> {
