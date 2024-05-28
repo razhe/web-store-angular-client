@@ -22,12 +22,12 @@ export class SubcategoryService {
     return this.http.post<ResponseApi>(`${ this.urlEndpoint }`, request)
   }
 
-  Update (request: CreateUpdateSubcategory, subcategoryId: string) : Observable<ResponseApi> {
+  Update (request: CreateUpdateSubcategory, subcategoryId: number) : Observable<ResponseApi> {
     const params = new HttpParams().set('subcategoryId', subcategoryId)
     return this.http.put<ResponseApi>(`${ this.urlEndpoint }`, request, { params })
   }
 
-  Remove (subcategoryId: string) : Observable<ResponseApi> {
+  Remove (subcategoryId: number) : Observable<ResponseApi> {
     const params = new HttpParams().set('subcategoryId', subcategoryId)
     return this.http.delete<ResponseApi>(`${ this.urlEndpoint }`, { params })
   }

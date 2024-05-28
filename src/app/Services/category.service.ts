@@ -22,12 +22,12 @@ export class CategoryService {
     return this.http.post<ResponseApi>(`${ this.urlEndpoint }`, request)
   }
 
-  Update (request: CreateUpdateCategory, categoryId: string) : Observable<ResponseApi> {
+  Update (request: CreateUpdateCategory, categoryId: number) : Observable<ResponseApi> {
     const params = new HttpParams().set('categoryId', categoryId)
     return this.http.put<ResponseApi>(`${ this.urlEndpoint }`, request, { params })
   }
 
-  Remove (categoryId: string) : Observable<ResponseApi> {
+  Remove (categoryId: number) : Observable<ResponseApi> {
     const params = new HttpParams().set('categoryId', categoryId)
     return this.http.delete<ResponseApi>(`${ this.urlEndpoint }`, { params })
   }
