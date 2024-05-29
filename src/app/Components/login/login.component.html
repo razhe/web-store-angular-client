@@ -1,1 +1,36 @@
-<p>login works!</p>
+<div class="body">
+  <mat-card class="loginCard">
+    <div class="header">
+      <h2>Login</h2>
+    </div>
+
+    <mat-card-content style="padding-bottom: 15px;">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput autocomplete="off">
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" matInput autocomplete="off">
+
+          <button mat-icon-button matSuffix (click)="!showPassword" type="button">
+            <mat-icon matSuffix>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+
+        </mat-form-field>
+
+        <button class="full-width" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+          Ingresar
+          <mat-icon matSuffix>login</mat-icon>
+        </button>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate" *ngIf="showLoading"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>
