@@ -1,0 +1,54 @@
+<h2 mat-dialog-title> {{ actionTitle }} User </h2>
+
+<mat-dialog-content>
+
+  <form [formGroup]="userForm">
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput autocomplete="off" formControlName="email">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input [type]="showPassword ? 'text' : 'password'" matInput autocomplete="off" formControlName="password">
+          <button matSuffix (click)="showPassword = !showPassword" type="button">
+            <mat-icon matSuffix>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="1">Admin</mat-option>
+            <mat-option value="2">User</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-checkbox formControlName="active">Active</mat-checkbox>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn">Go Back</button>
+  <button mat-raised-button color="primary" [disabled]="userForm.invalid" (click)="createOrUpdateUser()">
+    {{ actionButton }}
+  </button>
+</mat-dialog-actions>

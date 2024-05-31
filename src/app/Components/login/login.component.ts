@@ -55,7 +55,7 @@ export class LoginComponent {
       error: (response:any) => {
         this.assetService.showAlert(
           response.error.message ??
-          "Ha ocurrido un error inesperado, intente nuevamente. Si persiste comuniquese con sorporte", "Opps!")
+          "Ha ocurrido un error inesperado, intente nuevamente. Si persiste comuniquese con sorporte", "Oops!")
 
         this.showLoading = false;
       }
