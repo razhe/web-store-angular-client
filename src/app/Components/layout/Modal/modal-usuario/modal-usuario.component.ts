@@ -28,7 +28,7 @@ export class ModalUsuarioComponent {
   {
     this.userForm = this.fb.group({
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: [''],
       role: ['', Validators.required],
       active: ['', Validators.required],
     })
@@ -52,9 +52,8 @@ export class ModalUsuarioComponent {
       email: this.userForm.value.email,
       password: this.userForm.value.password,
       role: parseInt(this.userForm.value.role),
-      active: this.userForm.value.active === "true"
+      active: this.userForm.value.active
     }
-
     if (this.userData === null) {
       this.userService.Create(user).subscribe({
         next: (response) => {

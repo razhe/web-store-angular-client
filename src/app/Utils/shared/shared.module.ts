@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -61,7 +62,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatFormFieldModule
   ],
   providers: [
     MatDatepickerModule,

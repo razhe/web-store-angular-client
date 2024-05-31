@@ -23,12 +23,12 @@ export class ProductService {
   }
 
   Update (request: CreateUpdateProduct, productId: string) : Observable<ResponseApi> {
-    const params = new HttpParams().set('productId', productId)
-    return this.http.put<ResponseApi>(`${ this.urlEndpoint }`, request, { params })
+    //const params = new HttpParams().set('productId', productId)
+    return this.http.put<ResponseApi>(`${ this.urlEndpoint }/${productId}`, request)
   }
 
   Remove (productId: string) : Observable<ResponseApi> {
-    const params = new HttpParams().set('productId', productId)
-    return this.http.delete<ResponseApi>(`${ this.urlEndpoint }`, { params })
+    //const params = new HttpParams().set('productId', productId)
+    return this.http.delete<ResponseApi>(`${ this.urlEndpoint }/${productId}`)
   }
 }

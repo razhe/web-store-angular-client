@@ -23,12 +23,12 @@ export class UserService {
   }
 
   Update (request: CreateUpdateUser, userId: string) : Observable<ResponseApi> {
-    const params = new HttpParams().set('userId', userId)
-    return this.http.put<ResponseApi>(`${ this.urlEndpoint }`, request, { params })
+    //const params = new HttpParams().set('userId', userId)
+    return this.http.put<ResponseApi>(`${ this.urlEndpoint }/${userId}`, request)
   }
 
   Remove (userId: string) : Observable<ResponseApi> {
-    const params = new HttpParams().set('userId', userId)
-    return this.http.delete<ResponseApi>(`${ this.urlEndpoint }`, { params })
+    //const params = new HttpParams().set('userId', userId)
+    return this.http.delete<ResponseApi>(`${ this.urlEndpoint }/${userId}`)
   }
 }

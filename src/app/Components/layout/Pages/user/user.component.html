@@ -1,1 +1,64 @@
-<p>user works!</p>
+<h1 style="margin: 20px 0px 0px 40px;">Users</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px; padding: 20px;">
+  <mat-card-title>
+    <button mat-raised-button color="primary" (click)="createUser()">
+      <mat-icon>add</mat-icon> New User
+    </button>
+  </mat-card-title>
+
+  <mat-divider style="margin-top: 20px !important;"></mat-divider>
+
+  <mat-card-content class="dashboard-card-content" style="margin-top: 20px;padding: 0 !important;">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyTableFilter($event)" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z2">
+      <table mat-table [dataSource]="userDataTable">
+
+        <ng-container matColumnDef="Email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Role">
+          <th mat-header-cell *matHeaderCellDef> Role </th>
+          <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Active">
+          <th mat-header-cell *matHeaderCellDef> Active </th>
+          <td mat-cell *matCellDef="let element"> {{ element.active ? 'Active' : 'Inactive' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div style="display: flex; justify-content: space-between;">
+              <button mat-icon-button color="primary" (click)="updateUser(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="removeUser(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data available</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

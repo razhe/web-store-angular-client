@@ -17,7 +17,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input [type]="showPassword ? 'text' : 'password'" matInput autocomplete="off" formControlName="password">
-          <button matSuffix (click)="showPassword = !showPassword" type="button">
+          <button mat-icon-button matSuffix (click)="showPassword = !showPassword" type="button">
             <mat-icon matSuffix>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
         </mat-form-field>
@@ -26,18 +26,18 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Role</mat-label>
-          <mat-select formControlName="role">
-            <mat-option value="1">Admin</mat-option>
-            <mat-option value="2">User</mat-option>
+          <mat-select matInput formControlName="role">
+            <mat-option [value]="1">Admin</mat-option>
+            <mat-option [value]="2">User</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Status</mat-label>
-          <mat-checkbox formControlName="active">Active</mat-checkbox>
-        </mat-form-field>
+        <div style="display: flex; justify-content: start !important; width: 100%; align-items: center;">
+          <mat-label style="margin-left: 12px;">Active</mat-label>
+          <mat-checkbox matInput formControlName="active"></mat-checkbox>
+        </div>
       </mat-grid-tile>
 
     </mat-grid-list>

@@ -78,6 +78,7 @@ export class UserComponent implements AfterViewInit {
         this.userService.Remove(user.id).subscribe({
           next: (response) => {
             this.assetService.showAlert(response.message, 'Exito');
+            this.GetUsers();
           },
           error: (response) => {
             this.assetService.showAlert(
@@ -93,7 +94,7 @@ export class UserComponent implements AfterViewInit {
     this.userService.list().subscribe({
       next: (response) => {
         if (response.data !== null) {
-          this.userDataTable.data = response.data.value;
+          this.userDataTable.data = response.data;
         } else {
           this.assetService.showAlert("No se ha encontrado información", "Oops!");
         }
