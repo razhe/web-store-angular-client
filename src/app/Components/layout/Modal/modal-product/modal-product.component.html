@@ -1,1 +1,106 @@
-<p>modal-product works!</p>
+<h2 mat-dialog-title> {{ actionTitle }} Product </h2>
+
+<mat-dialog-content>
+
+  <form [formGroup]="productForm">
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput autocomplete="off" formControlName="name">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput autocomplete="off" formControlName="description">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Subcategory</mat-label>
+          <mat-select matInput formControlName="subcategoryId">
+            <mat-option *ngFor="let subcategory of subcategoryList" [value]="subcategory.id">{{ subcategory.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput autocomplete="off" formControlName="price">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Stock</mat-label>
+          <input matInput autocomplete="off" formControlName="stock">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Sku</mat-label>
+          <input matInput autocomplete="off" formControlName="sku">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Slug</mat-label>
+          <input matInput autocomplete="off" formControlName="slug">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="example-chip-list">
+          <mat-label>Tags</mat-label>
+          <mat-chip-grid #chipGrid aria-label="">
+            <mat-chip-row *ngFor="let tag of productTags" (removed)="remove(tag)">
+              {{ tag }}
+              <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input placeholder="New tag..."
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"/>
+          </mat-chip-grid>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Brand</mat-label>
+          <mat-select matInput formControlName="brandId">
+            <mat-option *ngFor="let brand of brandList" [value]="brand.id">{{ brand.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <div style="display: flex; justify-content: start !important; width: 100%; align-items: center;">
+          <mat-label style="margin-left: 12px;">Active</mat-label>
+          <mat-checkbox matInput formControlName="active"></mat-checkbox>
+        </div>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn">Go Back</button>
+  <button mat-raised-button color="primary" [disabled]="productForm.invalid" (click)="createOrUpdateProduct()">
+    {{ actionButton }}
+  </button>
+</mat-dialog-actions>
+

@@ -1,1 +1,100 @@
-<p>product works!</p>
+<h1 style="margin: 20px 0px 0px 40px;">Products</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px; padding: 20px;">
+  <mat-card-title>
+    <button mat-raised-button color="primary" (click)="createProduct()">
+      <mat-icon>add</mat-icon> New Product
+    </button>
+  </mat-card-title>
+
+  <mat-divider style="margin-top: 20px !important;"></mat-divider>
+
+  <mat-card-content class="dashboard-card-content" style="margin-top: 20px;padding: 0 !important;">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyTableFilter($event)" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z2">
+      <table mat-table [dataSource]="productDataTable">
+
+        <ng-container matColumnDef="SubcategoryName">
+          <th mat-header-cell *matHeaderCellDef> Subcategory Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.subcategoryName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="BrandName">
+          <th mat-header-cell *matHeaderCellDef> Brand Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.brandName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Sku">
+          <th mat-header-cell *matHeaderCellDef> Sku </th>
+          <td mat-cell *matCellDef="let element"> {{ element.sku }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Stock">
+          <th mat-header-cell *matHeaderCellDef> Stock </th>
+          <td mat-cell *matCellDef="let element"> {{ element.stock }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Slug">
+          <th mat-header-cell *matHeaderCellDef> Slug </th>
+          <td mat-cell *matCellDef="let element"> {{ element.slug }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Tags">
+          <th mat-header-cell *matHeaderCellDef> Tags </th>
+          <td mat-cell *matCellDef="let element"> {{ element.tags }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Active">
+          <th mat-header-cell *matHeaderCellDef> Active </th>
+          <td mat-cell *matCellDef="let element"> {{ element.active ? 'Active' : 'Inactive' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div style="display: flex; justify-content: space-between;">
+              <button mat-icon-button color="primary" (click)="updateProduct(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="removeProduct(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data available</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
+

@@ -10,6 +10,15 @@ import { BrandService } from '../../../../Services/brand.service';
 import { Brand } from '../../../../Interfaces/brand';
 import { CreateUpdateProduct } from '../../../../Interfaces/create-update-product';
 
+//#region Chips
+
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
+
+//#endregion
+
+
 @Component({
   selector: 'app-modal-product',
   templateUrl: './modal-product.component.html',
@@ -20,8 +29,10 @@ export class ModalProductComponent {
   productForm: FormGroup;
   actionTitle: string = "Create";
   actionButton: string = "Save";
-  subcategoryList: Subcategory[] = []
-  brandList: Brand[] = []
+  subcategoryList: Subcategory[] = [];
+  brandList: Brand[] = [];
+  productTags: string[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +43,7 @@ export class ModalProductComponent {
     private brandService: BrandService,
     private assetService: AssetsService
   ) {
+
     this.productForm = this.fb.group({
       subcategoryId: [null, Validators.required],
       brandId: [null, Validators.required],
@@ -41,7 +53,7 @@ export class ModalProductComponent {
       stock: [null, Validators.required],
       sku: ['', Validators.required],
       slug: ['', Validators.required],
-      tags: [[]],
+      tags: [this.productTags],
       active: [true, Validators.required]
     })
 
@@ -81,23 +93,24 @@ export class ModalProductComponent {
         stock: this.productData.stock,
         sku: this.productData.sku,
         slug: this.productData.slug,
-        tags: this.productData.tags,
         active: this.productData.active
       })
+
+      this.productTags = this.productData.tags;
     }
   }
 
-  createOrUpdateUser() {
+  createOrUpdateProduct() {
     const product: CreateUpdateProduct = {
       subcategoryId: parseInt(this.productForm.value.subcategoryId),
-      brandId: parseInt(this.productForm.value.subcategoryId),
+      brandId: parseInt(this.productForm.value.brandId),
       name: this.productForm.value.name,
       description: this.productForm.value.description,
       price: parseInt(this.productForm.value.price),
       stock: parseInt(this.productForm.value.stock),
       sku: this.productForm.value.sku,
       slug: this.productForm.value.slug,
-      tags: this.productForm.value.tags,
+      tags: this.productTags,
       active: this.productForm.value.active
     }
     if (this.productData === null) {
@@ -131,4 +144,51 @@ export class ModalProductComponent {
       })
     }
   }
+
+  //#region Angular Material Chips
+
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+  announcer = Inject(LiveAnnouncer);
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.productTags.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(tag: string): void {
+    const index = this.productTags.indexOf(tag);
+
+    if (index >= 0) {
+      this.productTags.splice(index, 1);
+
+      this.announcer.announce(`Removed ${tag}`);
+    }
+  }
+
+  // edit(fruit: Fruit, event: MatChipEditedEvent) {
+  //   const value = event.value.trim();
+
+  //   // Remove fruit if it no longer has a name
+  //   if (!value) {
+  //     this.remove(fruit);
+  //     return;
+  //   }
+
+  //   // Edit existing fruit
+  //   const index = this.fruits.indexOf(fruit);
+  //   if (index >= 0) {
+  //     this.fruits[index].name = value;
+  //   }
+  // }
+
+  //#endregion
 }
