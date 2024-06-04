@@ -35,7 +35,7 @@ export class SaleService {
     return this.http.get<ResponseApi>(`${ this.urlEndpoint }/report`, { params })
   }
 
-  Create (request: CreateSale) : Observable<ResponseApi> {
+  Create (request: CreateSale[]) : Observable<ResponseApi> {
     return this.http.post<ResponseApi>(`${ this.urlEndpoint }`, request)
   }
 }
