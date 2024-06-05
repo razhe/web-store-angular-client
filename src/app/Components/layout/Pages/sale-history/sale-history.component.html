@@ -1,1 +1,92 @@
-<p>sale-history works!</p>
+<h1 style="margin: 20px 0px 0px 40px;">  Sales History </h1>
+
+<mat-card style="margin: 20px 40px 40px 40px; padding: 20px;">
+  <mat-card-content>
+
+    <form [formGroup]="searchForm" (ngSubmit)="searchSales()">
+
+      <div class="campos-formulario">
+        <mat-form-field appearance="fill">
+          <mat-label>Search By</mat-label>
+          <mat-select matInput formControlName="searchTerm">
+            <mat-option *ngFor="let item of searchOptions" [value]="item.value">{{ item.description }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="searchForm.value.searchTerm === 'orderNumber'" style="margin-left: 40px;">
+          <mat-label>Order Number</mat-label>
+          <input matInput autocomplete="off" formControlName="orderNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="searchForm.value.searchTerm === 'date'" style="margin-left: 40px;">
+          <mat-label>Start Date</mat-label>
+          <input matInput autocomplete="off" formControlName="startDate" [matDatepicker]="startDatePicker">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="searchForm.value.searchTerm === 'date'" style="margin-left: 40px;">
+          <mat-label>End Date</mat-label>
+          <input matInput autocomplete="off" formControlName="endDate" [matDatepicker]="endDatePicker">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="searchForm.invalid" type="submit" class="boton-buscar" style="margin-left: 40px;">
+          <mat-icon>search</mat-icon>
+           Search
+        </button>
+
+      </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <mat-form-field appearance="outline" class="input-filter">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyTableFilter($event)" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z2">
+      <table mat-table [dataSource]="saleDataTable">
+
+        <ng-container matColumnDef="orderNumber">
+          <th mat-header-cell *matHeaderCellDef> Order Number </th>
+          <td mat-cell *matCellDef="let element"> {{ element.orderNumber }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef> Register Date </th>
+          <td mat-cell *matCellDef="let element"> {{ element.createdAt }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let element"> {{ element.total }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div style="display: flex; justify-content: space-between;">
+              <button mat-icon-button color="primary" (click)="showSaleDetail(element)" matTooltip="See More...">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data available</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+  </mat-card-content>
+</mat-card>
