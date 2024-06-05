@@ -29,7 +29,7 @@ export class SaleComponent {
   totalAmount: number = 0;
 
   saleForm: FormGroup;
-  tableColumn: string[] = ['productName', 'quantity', 'unitPrice', 'subtotal', 'actions'];
+  tableColumns: string[] = ['productName', 'quantity', 'unitPrice', 'subtotal', 'actions'];
   productSaleData = new MatTableDataSource(this.productListForSale);
 
   returnProductsByFilter(search: any) : Array<Product> {
@@ -96,9 +96,10 @@ export class SaleComponent {
     })
   }
 
-  removeProductFromCar(productSale: ProductForSale) {
+  removeProductFromCar(productSale: ProductForSale, index: number) {
     this.totalAmount = this.totalAmount - productSale.subtotal;
-    this.productListForSale = this.productListForSale.filter(p => p.productId !== productSale.productId);
+
+    this.productListForSale.splice(index, 1);
 
     this.productSaleData = new MatTableDataSource(this.productListForSale);
   }
