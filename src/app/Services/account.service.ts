@@ -6,6 +6,7 @@ import { ResponseApi } from '../Interfaces/response-api';
 import { jwtDecode } from 'jwt-decode';
 import { LoginRequest } from '../Interfaces/login-request';
 import { RefreshTokenRequest } from '../Interfaces/refresh-token-request';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AccountService {
 
   private urlEndpoint: string = environment.endpoint.concat("account");
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     /* Nota
     Nos suscribimos al Subject lo cual ejecutara el metodo refresh token cuando
     emitamos un valor a traves de él.
@@ -52,5 +53,23 @@ export class AccountService {
     let currentTimestamp: number = Math.floor(Date.now() / 1000);
 
     return expirationTime < currentTimestamp;
+  }
+
+  getUserSession() : any {
+    const accessToken = localStorage.getItem('accessTokenObj')
+    let decodedToken: any = jwtDecode(accessToken!);
+
+    const userSessionData: any = {
+      'name': decodedToken.Name,
+      'role': decodedToken.Role,
+      'email': decodedToken.Email,
+    }
+
+    return userSessionData;
+  }
+
+  removeUserSession() : void {
+    localStorage.removeItem('accessTokenObj');
+    this.router.navigateByUrl('login');
   }
 }

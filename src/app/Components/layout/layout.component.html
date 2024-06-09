@@ -6,6 +6,13 @@
       <mat-icon>menu</mat-icon>
     </button>
 
+    <span style="flex: 1 1 auto;"></span>
+    <label style="font-size: 14px; margin-right: 20px;">
+      {{ userEmail }} | {{ userRole == 1 ? "Administrator" : "User" }}
+    </label>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
