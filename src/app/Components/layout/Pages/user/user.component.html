@@ -25,7 +25,7 @@
 
         <ng-container matColumnDef="Role">
           <th mat-header-cell *matHeaderCellDef> Role </th>
-          <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.role == 1 ? 'Administrator' : 'User' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="Active">
